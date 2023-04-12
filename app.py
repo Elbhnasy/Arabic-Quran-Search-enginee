@@ -5,7 +5,7 @@ import joblib
 
 import nltk
 nltk.download('stopwords')
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 import pyarabic.araby as araby
 from nltk.corpus import stopwords
 from arabicstopwords.arabicstopwords import stopwords_list
@@ -14,8 +14,8 @@ from qalsadi.lemmatizer import Lemmatizer
 from flask import Flask, render_template, request
 
 
-# load the saved model from file using joblib
-vectorizer = joblib.load('DeployingData/model.pkl')
+# # load the saved model from file using joblib
+# vectorizer = joblib.load('DeployingData/model.pkl')
 
 # Load necessary data and models
 df = pd.read_csv(r"DeployingData/processed_df.csv")
@@ -63,7 +63,14 @@ def show_best_results(df_quran, scores_array, top_n=20):
             }
             results.append(result_dict)
     return results
+# Extract the clean text from the dataframe
+corpus = df['clean_txt']
 
+# Instantiate the vectorizer object
+vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+
+# Vectorize the corpus
+corpus_vectorized = vectorizer.fit_transform(corpus)
 def run_arabic_search_engine(query):
 
     stopwordlist = set(list(stopwords_list()) + stopwords.words('arabic'))
@@ -76,7 +83,9 @@ def run_arabic_search_engine(query):
 
     # Run the search engine
     corpus = df["clean_txt"]
-    corpus_vectorized = vectorizer.transform(corpus)
+    # Instantiate the vectorizer object
+    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+    corpus_vectorized = vectorizer.fit_transform(corpus)
     query_vectorized = vectorizer.transform([query])
     scores = query_vectorized.dot(corpus_vectorized.transpose())
     scores_array = scores.toarray()[0]
