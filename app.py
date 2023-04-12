@@ -20,8 +20,7 @@ from flask import Flask, render_template, request
 # Load necessary data and models
 df = pd.read_csv(r"DeployingData/processed_df.csv")
 
-st = ArabicStemmer()
-lemmer = Lemmatizer()
+
 
 def normalize_chars(txt):
     txt = re.sub("[إأٱآا]", "ا", txt)
@@ -81,11 +80,6 @@ def run_arabic_search_engine(query):
     # Preprocess the query
     query = clean_txt(query, stopwordlist, lemmer)
 
-    # Run the search engine
-    corpus = df["clean_txt"]
-    # Instantiate the vectorizer object
-    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
-    corpus_vectorized = vectorizer.fit_transform(corpus)
     query_vectorized = vectorizer.transform([query])
     scores = query_vectorized.dot(corpus_vectorized.transpose())
     scores_array = scores.toarray()[0]
