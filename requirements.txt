@@ -1,0 +1,12 @@
+gunicorn
+pandas
+nltk
+pyarabic
+Arabic-Stopwords
+scikit-learn
+qalsadi
+flask
+numpy
+pip
+scipy
+joblib
