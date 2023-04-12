@@ -53,6 +53,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 https://user-images.githubusercontent.com/63622300/231515546-0d981e9f-b57d-4e22-b28b-6b48ad78b859.mp4
 
 
+ 
+### Website [![Web App](https://img.shields.io/badge/%F0%9F%A4%97%20Search%20Ayah-red)](https://quranserch.onrender.com)
 
 ## Author 
 
