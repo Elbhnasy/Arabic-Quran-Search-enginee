@@ -1,117 +1,135 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Search Quran</title>
-    <style>
+  <title>Search Quran</title>
+  <style>
     body {
-        background-image: url('https://i.pinimg.com/564x/aa/fb/58/aafb580ceece9ff4158af0fc53584f93.jpg');
-        background-size: cover;
+      background-size: cover;
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     h1 {
-
-        color: brown;
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        top: 100px;
-        right: 0;
-        left: 0;
-        font-size: 100px;
-        height: 100px;
-        border-radius: 3px;
+      color: #8B4513;
+      font-size: 60px;
+      margin-bottom: 20px;
+      position: left;
+      animation-name: bounce;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      display: inline-block;
+      background-image: url('download-removebg-preview.png');
+      background-repeat: no-repeat;
+      background-position: left;
+      padding-left: 230px;
+      padding-right:100px;
+      padding-top: 80px;
+      padding-bottom: 30px;
     }
-    form {
-      
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        top: 250px;
-        right: 0;
-        left: 0;
-        height: 100px;
-        border-radius: 3px;
-    }
-    div
-    {
-        
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        right: 70px;
-        top: 10px;
-    }
-    .x
-    {
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        top: 15px;
-        right: 0;
-        left: 0;
-        height: 100px;
-        border-radius: 3px;
-        font-size: 40px;
-    }
-    .y
-    {
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        top: 100px;
-        right: 0;
-        left: 0;
-        height: 20px;
-        border-radius: 1px;
-        width: 500px;
-        font-size: 20px;
-        
-    }
-    .z
-    {
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        top: 150px;
-        right: 0;
-        left: 0;
-        height: 20px;
-        border-radius: 1px;
-        width: 500px;
-        color:brown;
-        background-color:antiquewhite;
-        
-    }
-
-
     
-    </style>
-
-<body>
-<h1>Search Quran</h1>
-<form method="POST" action="{{ url_for('results') }}">
-    <label for="query" class="x">Enter your words</label>
-    <input type="text" id="query" name="query" class="y" required>
-    <input type="submit" value="Search" class="z">
-</form>
-<!------------------>
-<div id="google_translate_element"></div>
-
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {pageLanguage: 'en'},
-            'google_translate_element'
-        );
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
     }
-</script>
 
-<script type="text/javascript"
-        src=
-"https://translate.google.com/translate_a/element.js?
-cb=googleTranslateElementInit">
-</script>
-<!------------------>
+    form {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      height: 50px;
+      padding: 10px;
+      border-radius: 50px;
+      border: none;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+      font-size: 20px;
+      color: #8B4513;
+      background-color: #fff;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="submit"] {
+      background-color: #8B4513;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-left: 10px;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="submit"]:hover {
+      background-color: #A0522D;
+    }
+
+
+    #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 70px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><span>Search Quran</span></h1>
+  </header>
+  <div class="container">
+    <form method="POST" action="{{ url_for('results') }}">
+      <!-- <label for="query">Enter your words</label> -->
+      <input type="text" id="query" name="query" required>
+      <input type="submit" value="Search">
+    </form>
+  </div>
+  <div id="google_translate_element"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {pageLanguage: 'en'}, 'google_translate_element'
+      );
+    }
+  </script>
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+  </script>
+  <script>
+    function spin() {
+      var text = document.querySelector("h1 span");
+      text.classList.toggle("spin");
+    }
+    
+  </script>
 </body>
 </html>
+
